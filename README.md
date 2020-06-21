@@ -44,7 +44,7 @@ results = fk.sort_results(
 Or ran in terminal
 
 ```bash
-fastkmers.py --fastq $fastqfile \
+python3 fastkmers.py --fastq $fastqfile \
 --N $kmersize \
 --output $outputfname \
 --cores $ncores

@@ -157,7 +157,7 @@ def main(args):
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--fastq', type=str, nargs='+', help='Input fastq file (zipped)')
+    parser.add_argument('--fastq', type=str, help='Input fastq file (zipped)')
     parser.add_argument('--N', type=int, help='Size of kmers to quantify')
     parser.add_argument('--output', type=str, help='Output file name')
     parser.add_argument('--cores', type=int, help='Number of cpu cores to use for parallelization', default=1)
