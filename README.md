@@ -4,7 +4,7 @@ _Author: Koki_
 
 Python script for reading and counting the frequency of N sized kmers
 
-The following script was made on python3.7.7
+The following script was made on python 3.7.7
 and requires the numpy package (version 1.18.1)
 
 File overview
