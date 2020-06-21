@@ -72,11 +72,6 @@ def get_sequences(file_path):
     """
     
     sequences = []
-    
-        if '.gz' in "sample_1M.fq.gz".split('/')[-1]:
-        fastq = gzip.open(file_path, 'r')
-    else:
-        fastq = open(file_path, 'r')
 
     with gzip.open(file_path, 'r') as fastq:
         for _ in fastq:
