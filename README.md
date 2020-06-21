@@ -20,7 +20,25 @@ File overview
 The script can be used interactively in a notebook by importing the file
 
 ```Python
-import fastkmers
+import fastkmers as fk
+
+kmer_size = 5  # adjust to desired kmer size
+
+sequences = fk.get_sequences(file_path)  # load fastq file
+
+# serial
+results = fk.sort_results(fk.quantify_kmers(sequences, N=kmer_size))
+
+# parallel
+results = fk.sort_results(
+    fk.merge_kmers(
+        fk.parallelize(
+            array=seq,
+            func=fk.quantify_kmers,
+            n_cores=16,
+            N=kmer_size)
+    )
+)
 ```
 
 Or ran in terminal
@@ -35,6 +53,6 @@ fastkmers.py --fastq $fastqfile \
 | Parameters | Description                                                                                                                                                                                |
 | :--------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | --fastq    | Full path to fastq file of interest. Currently supporting reading zipped files                                                                                                             |
-| --N        | Size of kmers to generate. Note that computationl time can drastically increase depending on the specified size. Please refer to the `dev.ipynb` notebook for an estimation of performance |
+| --N        | Size of kmers to generate. Note that computation time can drastically increase depending on the specified size. Please refer to the `dev.ipynb` notebook for an estimation of performance |
 | --output   | Name of output file, which will be a tab-delimited file with the kmer and corresponding frequency                                                                                          |
 | --cores    | Number of cpu cores to parallelize the task on. Can lead to drastic performance improvements                                                                                               |
