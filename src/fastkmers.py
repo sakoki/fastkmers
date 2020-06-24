@@ -131,7 +131,7 @@ def sort_results(kmers, descending=True):
     
     """
     
-    return sorted(kmers.items(), key=lambda x: x[1], reverse=True)
+    return sorted(kmers.items(), key=lambda x: x[1], reverse=descending)
 
 
 def write_kmers(fname, kmers):
@@ -143,6 +143,7 @@ def write_kmers(fname, kmers):
 
 def main(args):
     sequences = get_sequences(args.fastq)
+    # Run parallel
     if args.cores > 1:
         if args.cores > os.cpu_count():
             raise ValueError(f"Too many cores requested: {args.cores} request cores > {os.cpu_count()} system cores")
@@ -150,8 +151,9 @@ def main(args):
                                                        func=quantify_kmers,
                                                        n_cores=args.cores,
                                                        N=args.N)))
+    # Run serial
     else:
-        results = sort_results(quantify_kmers(args.fastq, args.N))
+        results = sort_results(quantify_kmers(sequences, args.N))
     write_kmers(args.output, results)
 
     
